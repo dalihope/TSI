@@ -1,0 +1,154 @@
+<form
+  class="form-horizontal"
+  autocomplete="off"
+  #createDelegationModal="ngForm"
+  (ngSubmit)="save()"
+>
+  <abp-modal-header
+    [title]="'CreateNewDelegation' | localize"
+    (onCloseClick)="bsModalRef.hide()"
+  ></abp-modal-header>
+  <div class="modal-body">
+    <tabset>
+      <tab [heading]="'DelegationDetails' | localize" class="pt-3 px-2">
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="libelleFR">
+            {{ "LibelleFR" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              name="libelleFR"
+              id="libelleFR"
+              required
+              maxlength="32"
+              [(ngModel)]="delegation.libelleFR"
+              #libelleFRModel="ngModel"
+              #libelleFREl
+            />
+            <abp-validation-summary
+              [control]="libelleFRModel"
+              [controlEl]="libelleFREl"
+            ></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="libelleAR">
+            {{ "LibelleAR" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              name="libelleAR"
+              id="libelleAR"
+              required
+              maxlength="32"
+              [(ngModel)]="delegation.libelleAR"
+              #libelleARModel="ngModel"
+              #libelleAREl
+            />
+            <abp-validation-summary
+              [control]="libelleARModel"
+              [controlEl]="libelleAREl"
+            ></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="libelle">
+            {{ "Libelle" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              name="libelle"
+              id="libelle"
+              required
+              minlength="2"
+              maxlength="32"
+              [(ngModel)]="delegation.libelle"
+              #libelleModel="ngModel"
+              #libelleEl
+            />
+            <abp-validation-summary
+              [control]="libelleModel"
+              [controlEl]="libelleEl"
+            ></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label" for="observation">
+                {{ "Observation" | localize }}
+              </label>
+              <div class="col-md-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="observation"
+                  id="observation"
+                  minlength="2"
+                  maxlength="32"
+                  [(ngModel)]="delegation.observation"
+                  #observationModel="ngModel"
+                  #observationEl
+                />
+                <abp-validation-summary
+                  [control]="observationModel"
+                  [controlEl]="observationEl"
+                ></abp-validation-summary>
+              </div>
+        </div>
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label" for="code">
+                {{ "Code" | localize }}
+            </label>
+            <div class="col-md-9">
+              <input
+                type="text"
+                class="form-control"
+                name="code"
+                id="code"
+                required
+                minlength="2"
+                maxlength="32"
+                pattern="^[0-9]*$"
+                [(ngModel)]="delegation.code"
+                #codeModel="ngModel"
+                #codeEl
+              />
+              <abp-validation-summary
+                [control]="codeModel"
+                [controlEl]="codeEl"
+              ></abp-validation-summary>
+            </div>
+          </div>
+            <div class="card-container">
+              <form name="form" (ngSubmit)="form.valid && onSubmit()" #form="ngForm"></form>
+                <label class="col-md-3 col-form-label" for="pageId">
+                  {{ "PageId" | localize }}
+                </label>
+                <select class="custom-select" name="pageId" [(ngModel)]="delegation.pageId" #DDPage="ngModel" 
+        [ngClass]="{ 'is-invalid': form.submitted && DDPage.invalid }" required>
+          <option value="" class="text-primary font-weight-bolder">
+            --- Select Page ---
+          </option>
+          <option *ngFor="let Page of Pages " [value]="Page.id">
+            {{Page.libelleFR}}
+          </option>
+        </select>
+        <!-- Required Validation Message -->
+        <div *ngIf="form.submitted && DDPage.invalid" class="text-danger">
+          <h6 *ngIf="DDPage.errors.required">Page is Required</h6>
+        </div>
+            </div>
+      </tab>
+    </tabset>
+  </div>
+  <abp-modal-footer
+    [cancelDisabled]="saving"
+    [saveDisabled]="!createDelegationModal.form.valid || saving"
+    (onCancelClick)="bsModalRef.hide()"
+  ></abp-modal-footer>
+</form>

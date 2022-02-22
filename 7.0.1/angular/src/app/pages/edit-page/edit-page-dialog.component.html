@@ -1,0 +1,136 @@
+<form
+  class="form-horizontal"
+  autocomplete="off"
+  #editPageModal="ngForm"
+  (ngSubmit)="save()"
+>
+  <abp-modal-header
+    [title]="'EditPage' | localize"
+    (onCloseClick)="bsModalRef.hide()"
+  ></abp-modal-header>
+  <div class="modal-body">
+     <tabset>
+      <tab [heading]="'PageDetails' | localize" class="pt-3 px-2">
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="libelleFR">
+            {{ "LibelleFR" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              name="libelleFR"
+              id="libelleFR"
+              required
+              maxlength="32"
+              [(ngModel)]="page.libelleFR"
+              #libelleFRModel="ngModel"
+              #libelleFREl
+            />
+            <abp-validation-summary
+              [control]="libelleFRModel"
+              [controlEl]="libelleFREl"
+            ></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="libelleAR">
+            {{ "LibelleAR" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              name="libelleAR"
+              id="libelleAR"
+              required
+              maxlength="32"
+              [(ngModel)]="page.libelleAR"
+              #libelleARModel="ngModel"
+              #libelleAREl
+            />
+            <abp-validation-summary
+              [control]="libelleARModel"
+              [controlEl]="libelleAREl"
+            ></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="libelle">
+            {{ "Libelle" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              name="libelle"
+              id="libelle"
+              required
+              minlength="2"
+              maxlength="32"
+              [(ngModel)]="page.libelle"
+              #libelleModel="ngModel"
+              #libelleEl
+            />
+            <abp-validation-summary
+              [control]="libelleModel"
+              [controlEl]="libelleEl"
+            ></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label" for="observation">
+                {{ "Observation" | localize }}
+              </label>
+              <div class="col-md-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="observation"
+                  id="observation"
+                  minlength="2"
+                  maxlength="32"
+                  [(ngModel)]="page.observation"
+                  #observationModel="ngModel"
+                  #observationEl
+                />
+                <abp-validation-summary
+                  [control]="observationModel"
+                  [controlEl]="observationEl"
+                ></abp-validation-summary>
+              </div>
+        </div>
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label" for="code">
+                {{ "Code" | localize }}
+            </label>
+            <div class="col-md-9">
+              <input
+                type="text"
+                class="form-control"
+                name="code"
+                id="code"
+                required
+                minlength="2"
+                maxlength="32"
+                pattern="^[0-9]*$"
+                [(ngModel)]="page.code"
+                #codeModel="ngModel"
+                #codeEl
+              />
+              <abp-validation-summary
+                [control]="codeModel"
+                [controlEl]="codeEl"
+              ></abp-validation-summary>
+            </div>
+          </div>
+         
+      </tab>
+    </tabset>
+  </div>
+  <abp-modal-footer
+    [cancelDisabled]="saving"
+    [saveDisabled]="!editPageModal.form.valid || saving"
+    (onCancelClick)="bsModalRef.hide()"
+  ></abp-modal-footer>
+</form>
